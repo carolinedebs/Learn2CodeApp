@@ -8,22 +8,61 @@ $(function() {
       person = null;
       switch ($("#dropdown option:selected").text()) {
         case "Taylor Swift":
-          person = 'taylor_small.jpg';
+          person = 'taylor.jpg';
           break;
         case "Kim Kardashian":
-          person = 'kim_small.jpg';
+          person = 'kim.jpg';
           break;
         case "Love Emoji":
-          person = 'LoveEmoji_small.png';
+          person = 'emoji.png';
       }
       $("<img>", {
-        src: "./images/" + person
+        src: "./media/" + person
       }).appendTo("#output");
       results.push(console.log($("#first_num").val()));
     }
     return results;
   });
-  return $("#clear_pics").on('click', function() {
-    return $("#output").html("");
+  return $("#go-if").on('click', function() {
+    var userInput;
+    $("#output-if").html("");
+    userInput = $("#user_lyrics").val().toLowerCase();
+    switch ($("#dropdown-if option:selected").text()) {
+      case "You Belong with Me - Taylor Swift":
+        return $.get('./media/youbelongwithme.txt', (function(_this) {
+          return function(data, err) {
+            var index;
+            console.log(err);
+            index = data.indexOf(userInput);
+            if (index !== -1) {
+              return $("<audio autobuffer controls id='audio-player' style='width:100%'> <source src='./media/YouBelongWithMe.mp3'></source></audio>").appendTo("#output-if");
+            }
+          };
+        })(this));
+      case "Baby - Justin Beiber":
+        return $.get('./media/baby.txt', (function(_this) {
+          return function(data, err) {
+            var index;
+            console.log(err);
+            index = data.indexOf(userInput);
+            console.log(index);
+            if (index !== -1) {
+              return $("<audio autobuffer controls id='audio-player' style='width:100%'> <source src='./media/Baby.mp3'></source></audio>").appendTo("#output-if");
+            }
+          };
+        })(this));
+      case "Trap Queen - Fetty Wap":
+        return $.get('./media/trapqueen.txt', (function(_this) {
+          return function(data, err) {
+            var index;
+            console.log(err);
+            index = data.indexOf(userInput);
+            console.log(index);
+            if (index !== -1) {
+              return $("<audio autobuffer controls id='audio-player' style='width:100%'> <source src='./media/TrapQueen.mp3'></source></audio>").appendTo("#output-if");
+            }
+          };
+        })(this));
+    }
   });
 });
